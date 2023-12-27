@@ -9,7 +9,7 @@ from scipy.stats import norm
 
 __all__ = ("covariance_matrix", )
 
-def covariance_matrix(covariance_matrix, mean, labels = None, figsize = (10,10), reference_values = None, ellipse_colors='g', showticks = True, **kwargs):
+def covariance_matrix(covariance_matrix, mean, labels = None, figsize = (10,10), reference_values = None, ellipse_colors='g', showticks = True, xticks_rotation=45, **kwargs):
     num_params = covariance_matrix.shape[0]
     fig, axes = plt.subplots(num_params, num_params, figsize=figsize)
     plt.subplots_adjust(wspace=0., hspace=0.)
@@ -56,6 +56,8 @@ def covariance_matrix(covariance_matrix, mean, labels = None, figsize = (10,10),
             else:
                 if labels is not None:
                     ax.set_xlabel(labels[j])
+                if xticks_rotation:
+                    ax.set_xticklabels(ax.get_xticklabels(), rotation=xticks_rotation)
             if not showticks:
                 ax.yaxis.set_major_locator(plt.NullLocator())
 
@@ -67,8 +69,9 @@ def covariance_matrix(covariance_matrix, mean, labels = None, figsize = (10,10),
             if not showticks:
                 ax.xaxis.set_major_locator(plt.NullLocator())
 
+            
     
-    return fig, ax
+    return fig, axes
 
 if __name__ == "__main__":
 
